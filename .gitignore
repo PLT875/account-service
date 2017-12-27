@@ -1,3 +1,6 @@
 account-service.iml
 .idea
 target
+.classpath
+.project
+.settings

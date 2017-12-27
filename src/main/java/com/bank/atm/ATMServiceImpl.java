@@ -19,12 +19,12 @@ public class ATMServiceImpl implements ATMService {
     private static final String NOT_ENOUGH_CHANGE = "Cannot withdraw %d " +
             "from account no. %s not enough change!";
 
-    private AccountService service;
+    private AccountService accountService;
 
     private Map<Integer, Integer> notes;
 
     public ATMServiceImpl() {
-        this.service = new AccountServiceImpl();
+        this.accountService = new AccountServiceImpl();
         this.notes = new HashMap<Integer, Integer>() {{
             put(5, 0);
             put(10, 0);
@@ -37,6 +37,10 @@ public class ATMServiceImpl implements ATMService {
         return notes;
     }
 
+    public AccountService getAccountService() {
+        return accountService;
+    }
+
     public void replenish(int mul5s, int mul10s, int mul20s, int mul50s) {
         notes.put(5, notes.get(5) + mul5s);
         notes.put(10, notes.get(10) + mul10s);
@@ -45,7 +49,7 @@ public class ATMServiceImpl implements ATMService {
     }
 
     public String checkBalance(String accountNo) {
-        double balance = service.checkBalance(accountNo).doubleValue();
+        double balance = accountService.checkBalance(accountNo).doubleValue();
         return "Balance: £" + String.format("%.2f", balance);
     }
 
@@ -121,7 +125,7 @@ public class ATMServiceImpl implements ATMService {
             return null;
         }
 
-        Double w = service.withdraw(accountNo, (double) amount);
+        Double w = accountService.withdraw(accountNo, (double) amount);
         // if amount to withdraw exceeds balance
         if (w.doubleValue() == 0.0) {
             return null;

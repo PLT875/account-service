@@ -1,4 +1,4 @@
-# Account /ATM Service
+# Account / ATM Service
 
 Please refer to the code comments for any assumptions made.
 
